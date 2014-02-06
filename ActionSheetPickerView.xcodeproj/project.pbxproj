@@ -18,7 +18,7 @@
 		E640EA79182EADC100151E83 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E640EA78182EADC100151E83 /* Default-568h@2x.png */; };
 		E640EA7C182EADC100151E83 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E640EA7B182EADC100151E83 /* ViewController.m */; };
 		E640EA7F182EADC100151E83 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E640EA7D182EADC100151E83 /* ViewController.xib */; };
-		E640EA88182EAF1900151E83 /* IQActionSheetPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E640EA87182EAF1900151E83 /* IQActionSheetPickerView.m */; };
+		E640EA88182EAF1900151E83 /* IQActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = E640EA87182EAF1900151E83 /* IQActionSheetPicker.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +38,8 @@
 		E640EA7A182EADC100151E83 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E640EA7B182EADC100151E83 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E640EA7E182EADC100151E83 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
-		E640EA86182EAF1900151E83 /* IQActionSheetPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQActionSheetPickerView.h; sourceTree = "<group>"; };
-		E640EA87182EAF1900151E83 /* IQActionSheetPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQActionSheetPickerView.m; sourceTree = "<group>"; };
+		E640EA86182EAF1900151E83 /* IQActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQActionSheetPicker.h; sourceTree = "<group>"; };
+		E640EA87182EAF1900151E83 /* IQActionSheetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQActionSheetPicker.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,8 +114,8 @@
 		E640EA85182EAF1900151E83 /* IQActionSheetPickerView */ = {
 			isa = PBXGroup;
 			children = (
-				E640EA86182EAF1900151E83 /* IQActionSheetPickerView.h */,
-				E640EA87182EAF1900151E83 /* IQActionSheetPickerView.m */,
+				E640EA86182EAF1900151E83 /* IQActionSheetPicker.h */,
+				E640EA87182EAF1900151E83 /* IQActionSheetPicker.m */,
 			);
 			path = IQActionSheetPickerView;
 			sourceTree = "<group>";
@@ -189,7 +189,7 @@
 				E640EA6F182EADC100151E83 /* main.m in Sources */,
 				E640EA73182EADC100151E83 /* AppDelegate.m in Sources */,
 				E640EA7C182EADC100151E83 /* ViewController.m in Sources */,
-				E640EA88182EAF1900151E83 /* IQActionSheetPickerView.m in Sources */,
+				E640EA88182EAF1900151E83 /* IQActionSheetPicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,29 +3,30 @@
 // Created by Mohd Iftekhar Qurashi on 11/5/13.
 // Copyright (c) 2013 Iftekhar. All rights reserved.
 
-#import "IQActionSheetPickerView.h"
+#import "IQActionSheetPicker.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation IQActionSheetPickerView
+@implementation IQActionSheetPicker
 @synthesize actionSheetPickerStyle = _actionSheetPickerStyle;
 @synthesize titlesForComponenets = _titlesForComponenets;
 @synthesize widthsForComponents = _widthsForComponents;
+@synthesize defaultValues = _defaultValues;
 @synthesize isRangePickerView = _isRangePickerView;
 @synthesize dateStyle = _dateStyle;
 @synthesize date = _date;
 @synthesize delegate;
+
 - (id)init
 {
     self = [super init];
     if (self) {
         _actionToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        _actionToolbar.barStyle = UIBarStyleBlackTranslucent;
+        _actionToolbar.barStyle = UIBarStyleDefault;
         [_actionToolbar sizeToFit];
         
-        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(pickerCancelClicked:)];
-        
+        UIBarButtonItem* cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Отмена" style:UIBarButtonSystemItemCancel target:self action:@selector(pickerCancelClicked:)];
         UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-        UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pickerDoneClicked:)];
+        UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithTitle:@"Ок" style:UIBarButtonSystemItemDone target:self action:@selector(pickerDoneClicked:)];
         
         [_actionToolbar setItems:[NSArray arrayWithObjects:cancelButton,flexSpace,doneBtn, nil] animated:YES];
         [self addSubview:_actionToolbar];
@@ -61,9 +62,20 @@
             [_pickerView setHidden:YES];
             [_datePicker setHidden:NO];
             break;
-     
         default:
             break;
+    }
+}
+
+-(void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    _pickerView.backgroundColor = _datePicker.backgroundColor = backgroundColor;
+}
+
+-(void)setDefaultValues:(NSArray *)defaultValues
+{
+    for (int i=0; i<defaultValues.count; i++) {
+        [_pickerView selectRow:[[defaultValues objectAtIndex:i] integerValue] inComponent:i animated:YES];
     }
 }
 
@@ -89,10 +101,11 @@
 
 -(void)pickerDoneClicked:(UIBarButtonItem*)barButton
 {
-    if ([self.delegate respondsToSelector:@selector(actionSheetPickerView:didSelectTitles:)])
+    if ([self.delegate respondsToSelector:@selector(actionSheetPickerView:didSelectTitles:didSelectIndexes:)])
     {
         NSMutableArray *selectedTitles = [[NSMutableArray alloc] init];
-
+        NSMutableArray *selectedIndexes = [[NSMutableArray alloc] init];
+        
         if (_actionSheetPickerStyle == IQActionSheetPickerStyleTextPicker)
         {
             for (NSInteger component = 0; component<_pickerView.numberOfComponents; component++)
@@ -102,10 +115,12 @@
                 if (row!= -1)
                 {
                     [selectedTitles addObject:[[_titlesForComponenets objectAtIndex:component] objectAtIndex:row]];
+                    [selectedIndexes addObject:[NSNumber numberWithInteger:row]];
                 }
                 else
                 {
                     [selectedTitles addObject:[NSNull null]];
+                    [selectedIndexes addObject:[NSNumber numberWithInteger:0]];
                 }
             }
         }
@@ -114,8 +129,8 @@
             [selectedTitles addObject:[NSDateFormatter localizedStringFromDate:_datePicker.date dateStyle:_dateStyle timeStyle:NSDateFormatterNoStyle]];
             [self setDate:_datePicker.date];
         }
-
-        [self.delegate actionSheetPickerView:self didSelectTitles:selectedTitles];
+        
+        [self.delegate actionSheetPickerView:self didSelectTitles:selectedTitles didSelectIndexes:selectedIndexes];
     }
     [self dismissWithClickedButtonIndex:0 animated:YES];
 }
@@ -154,7 +169,6 @@
     }
 }
 
-
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     return [_titlesForComponenets count];
@@ -184,7 +198,6 @@
         }
     }
 }
-
 
 -(void)showInView:(UIView *)view
 {

@@ -11,15 +11,15 @@ typedef enum IQActionSheetPickerStyle
     IQActionSheetPickerStyleDatePicker
 }IQActionSheetPickerStyle;
 
-@class IQActionSheetPickerView;
+@class IQActionSheetPicker;
 
-@protocol IQActionSheetPickerView <UIActionSheetDelegate>
+@protocol IQActionSheetPickerDelegate <UIActionSheetDelegate>
 
-- (void)actionSheetPickerView:(IQActionSheetPickerView *)pickerView didSelectTitles:(NSArray*)titles;
+-(void)actionSheetPickerView:(IQActionSheetPicker *)pickerView didSelectTitles:(NSArray*)titles didSelectIndexes:(NSArray *)indexes;
 
 @end
 
-@interface IQActionSheetPickerView : UIActionSheet<UIPickerViewDataSource,UIPickerViewDelegate>
+@interface IQActionSheetPicker : UIActionSheet <UIPickerViewDataSource, UIPickerViewDelegate>
 {
 @private
     UIPickerView    *_pickerView;
@@ -27,13 +27,18 @@ typedef enum IQActionSheetPickerStyle
     UIToolbar       *_actionToolbar;
 }
 
-@property(nonatomic,assign) id<IQActionSheetPickerView> delegate; // weak reference
+@property(nonatomic,assign) id<IQActionSheetPickerDelegate> delegate; // weak reference
 @property(nonatomic, assign) IQActionSheetPickerStyle actionSheetPickerStyle;   //Default is IQActionSheetPickerStyleTextPicker;
+
+// public properties
+
+@property(nonatomic, strong) UIColor *backgroundColor;
 
 /*for IQActionSheetPickerStyleTextPicker*/
 @property(nonatomic,assign) BOOL isRangePickerView;
 @property(nonatomic, strong) NSArray *titlesForComponenets;
 @property(nonatomic, strong) NSArray *widthsForComponents;
+@property(nonatomic, strong) NSArray *defaultValues;
 
 /*for IQActionSheetPickerStyleDatePicker*/
 @property(nonatomic, assign) NSDateFormatterStyle dateStyle;    //returning date string style.
